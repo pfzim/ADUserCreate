@@ -36,16 +36,18 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textLogin = new System.Windows.Forms.TextBox();
+            this.textPassword = new System.Windows.Forms.TextBox();
+            this.textEnLastName = new System.Windows.Forms.TextBox();
+            this.textEnFirstName = new System.Windows.Forms.TextBox();
+            this.textRuLastName = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -89,14 +91,14 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 122);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 4;
-            this.label5.Text = "RUS Full Name";
+            this.label5.Text = "RUS Last Name";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 148);
+            this.label6.Location = new System.Drawing.Point(12, 174);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 5;
@@ -105,7 +107,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 174);
+            this.label7.Location = new System.Drawing.Point(12, 200);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 6;
@@ -114,85 +116,85 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 200);
+            this.label8.Location = new System.Drawing.Point(12, 226);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 13);
             this.label8.TabIndex = 7;
             this.label8.Text = "Mobile Phone";
             // 
-            // textBox1
+            // textLogin
             // 
-            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox1.Location = new System.Drawing.Point(118, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(213, 20);
-            this.textBox1.TabIndex = 8;
+            this.textLogin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textLogin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textLogin.Location = new System.Drawing.Point(118, 15);
+            this.textLogin.Name = "textLogin";
+            this.textLogin.Size = new System.Drawing.Size(216, 20);
+            this.textLogin.TabIndex = 8;
             // 
-            // textBox2
+            // textPassword
             // 
-            this.textBox2.Location = new System.Drawing.Point(118, 41);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(213, 20);
-            this.textBox2.TabIndex = 9;
+            this.textPassword.Location = new System.Drawing.Point(118, 41);
+            this.textPassword.Name = "textPassword";
+            this.textPassword.Size = new System.Drawing.Size(216, 20);
+            this.textPassword.TabIndex = 9;
             // 
-            // textBox3
+            // textEnLastName
             // 
-            this.textBox3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox3.Location = new System.Drawing.Point(118, 67);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(213, 20);
-            this.textBox3.TabIndex = 10;
+            this.textEnLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textEnLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textEnLastName.Location = new System.Drawing.Point(118, 67);
+            this.textEnLastName.Name = "textEnLastName";
+            this.textEnLastName.Size = new System.Drawing.Size(216, 20);
+            this.textEnLastName.TabIndex = 10;
             // 
-            // textBox4
+            // textEnFirstName
             // 
-            this.textBox4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox4.Location = new System.Drawing.Point(118, 93);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(213, 20);
-            this.textBox4.TabIndex = 11;
+            this.textEnFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textEnFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textEnFirstName.Location = new System.Drawing.Point(118, 93);
+            this.textEnFirstName.Name = "textEnFirstName";
+            this.textEnFirstName.Size = new System.Drawing.Size(216, 20);
+            this.textEnFirstName.TabIndex = 11;
             // 
-            // textBox5
+            // textRuLastName
             // 
-            this.textBox5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox5.Location = new System.Drawing.Point(118, 119);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(213, 20);
-            this.textBox5.TabIndex = 12;
+            this.textRuLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textRuLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textRuLastName.Location = new System.Drawing.Point(118, 119);
+            this.textRuLastName.Name = "textRuLastName";
+            this.textRuLastName.Size = new System.Drawing.Size(216, 20);
+            this.textRuLastName.TabIndex = 12;
             // 
             // textBox6
             // 
             this.textBox6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBox6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox6.Location = new System.Drawing.Point(118, 145);
+            this.textBox6.Location = new System.Drawing.Point(118, 171);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(213, 20);
+            this.textBox6.Size = new System.Drawing.Size(216, 20);
             this.textBox6.TabIndex = 13;
             // 
             // textBox7
             // 
             this.textBox7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBox7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox7.Location = new System.Drawing.Point(118, 171);
+            this.textBox7.Location = new System.Drawing.Point(118, 197);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(213, 20);
+            this.textBox7.Size = new System.Drawing.Size(216, 20);
             this.textBox7.TabIndex = 14;
             // 
             // textBox8
             // 
             this.textBox8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textBox8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox8.Location = new System.Drawing.Point(118, 197);
+            this.textBox8.Location = new System.Drawing.Point(118, 223);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(213, 20);
+            this.textBox8.Size = new System.Drawing.Size(216, 20);
             this.textBox8.TabIndex = 15;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(175, 237);
+            this.button1.Location = new System.Drawing.Point(178, 260);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 16;
@@ -202,12 +204,30 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(256, 237);
+            this.button2.Location = new System.Drawing.Point(259, 260);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 17;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBox1.Location = new System.Drawing.Point(118, 145);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(216, 20);
+            this.textBox1.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 148);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "RUS First Name";
             // 
             // Form1
             // 
@@ -215,17 +235,19 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(346, 272);
+            this.ClientSize = new System.Drawing.Size(346, 295);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textRuLastName);
+            this.Controls.Add(this.textEnFirstName);
+            this.Controls.Add(this.textEnLastName);
+            this.Controls.Add(this.textPassword);
+            this.Controls.Add(this.textLogin);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -251,16 +273,18 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textLogin;
+        private System.Windows.Forms.TextBox textPassword;
+        private System.Windows.Forms.TextBox textEnLastName;
+        private System.Windows.Forms.TextBox textEnFirstName;
+        private System.Windows.Forms.TextBox textRuLastName;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label9;
     }
 }
 
