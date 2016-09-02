@@ -370,6 +370,18 @@ namespace ADUserCreate
                     ps.Commands.AddCommand("Enable-Mailbox");
                     ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
                     ps.Commands.AddParameter("Database", "dag-01-db-01");
+                    ps.Commands.AddStatement();
+                    ps.Commands.AddCommand("Add-MailboxPermission");
+                    ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("User", textLogin.Text + "@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("AccessRights", "FullAccess");
+                    ps.Commands.AddParameter("InheritanceType", "All");
+                    ps.Commands.AddStatement();
+                    ps.Commands.AddCommand("Add-ADPermission");
+                    ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("User", textLogin.Text + "@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("AccessRights", "ExtendedRight");
+                    ps.Commands.AddParameter("ExtendedRights", "send as");
                 }
 
                 var result = ps.Invoke();
