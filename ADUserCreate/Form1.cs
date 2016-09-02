@@ -377,11 +377,16 @@ namespace ADUserCreate
                     ps.Commands.AddParameter("AccessRights", "FullAccess");
                     ps.Commands.AddParameter("InheritanceType", "All");
                     ps.Commands.AddStatement();
-                    ps.Commands.AddCommand("Add-ADPermission");
+                    ps.Commands.AddScript("Get-Mailbox -Identity \"" + textLogin.Text + "_mi@srv1.sbcmedia.ru\" | Add-ADPermission -User \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights ExtendedRight -ExtendedRights \"send as\"");
+                    /*
+                    ps.Commands.AddCommand("Get-Mailbox");
                     ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
+                    ps.Commands.AddStatement();
+                    ps.Commands.AddCommand("Add-ADPermission");
                     ps.Commands.AddParameter("User", textLogin.Text + "@srv1.sbcmedia.ru");
                     ps.Commands.AddParameter("AccessRights", "ExtendedRight");
                     ps.Commands.AddParameter("ExtendedRights", "send as");
+                    */
                 }
 
                 var result = ps.Invoke();
