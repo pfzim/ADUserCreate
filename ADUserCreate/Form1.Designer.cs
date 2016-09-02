@@ -56,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Location = new System.Drawing.Point(62, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 0;
@@ -65,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 44);
+            this.label2.Location = new System.Drawing.Point(42, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 2;
@@ -74,7 +74,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 70);
+            this.label3.Location = new System.Drawing.Point(11, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 4;
@@ -83,7 +83,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 96);
+            this.label4.Location = new System.Drawing.Point(12, 97);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 13);
             this.label4.TabIndex = 6;
@@ -92,7 +92,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 122);
+            this.label5.Location = new System.Drawing.Point(11, 123);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 8;
@@ -101,7 +101,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 174);
+            this.label6.Location = new System.Drawing.Point(25, 175);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 12;
@@ -110,7 +110,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 200);
+            this.label7.Location = new System.Drawing.Point(25, 201);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 14;
@@ -119,7 +119,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 252);
+            this.label8.Location = new System.Drawing.Point(23, 254);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 13);
             this.label8.TabIndex = 20;
@@ -130,14 +130,14 @@
             this.textLogin.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textLogin.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textLogin.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textLogin.Location = new System.Drawing.Point(118, 15);
+            this.textLogin.Location = new System.Drawing.Point(101, 16);
             this.textLogin.Name = "textLogin";
             this.textLogin.Size = new System.Drawing.Size(216, 20);
             this.textLogin.TabIndex = 1;
             // 
             // textPassword
             // 
-            this.textPassword.Location = new System.Drawing.Point(118, 41);
+            this.textPassword.Location = new System.Drawing.Point(101, 42);
             this.textPassword.Name = "textPassword";
             this.textPassword.Size = new System.Drawing.Size(146, 20);
             this.textPassword.TabIndex = 3;
@@ -146,7 +146,7 @@
             // 
             this.textEnLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textEnLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textEnLastName.Location = new System.Drawing.Point(118, 67);
+            this.textEnLastName.Location = new System.Drawing.Point(101, 68);
             this.textEnLastName.Name = "textEnLastName";
             this.textEnLastName.Size = new System.Drawing.Size(216, 20);
             this.textEnLastName.TabIndex = 5;
@@ -155,7 +155,7 @@
             // 
             this.textEnFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textEnFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textEnFirstName.Location = new System.Drawing.Point(118, 93);
+            this.textEnFirstName.Location = new System.Drawing.Point(101, 94);
             this.textEnFirstName.Name = "textEnFirstName";
             this.textEnFirstName.Size = new System.Drawing.Size(216, 20);
             this.textEnFirstName.TabIndex = 7;
@@ -164,7 +164,7 @@
             // 
             this.textRuLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textRuLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textRuLastName.Location = new System.Drawing.Point(118, 119);
+            this.textRuLastName.Location = new System.Drawing.Point(101, 120);
             this.textRuLastName.Name = "textRuLastName";
             this.textRuLastName.Size = new System.Drawing.Size(216, 20);
             this.textRuLastName.TabIndex = 9;
@@ -173,7 +173,7 @@
             // 
             this.textEnPosition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textEnPosition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textEnPosition.Location = new System.Drawing.Point(118, 171);
+            this.textEnPosition.Location = new System.Drawing.Point(101, 172);
             this.textEnPosition.Name = "textEnPosition";
             this.textEnPosition.Size = new System.Drawing.Size(216, 20);
             this.textEnPosition.TabIndex = 13;
@@ -182,14 +182,14 @@
             // 
             this.textRuPosition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textRuPosition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textRuPosition.Location = new System.Drawing.Point(118, 197);
+            this.textRuPosition.Location = new System.Drawing.Point(101, 198);
             this.textRuPosition.Name = "textRuPosition";
             this.textRuPosition.Size = new System.Drawing.Size(216, 20);
             this.textRuPosition.TabIndex = 15;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(178, 288);
+            this.buttonAdd.Location = new System.Drawing.Point(161, 288);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 22;
@@ -200,7 +200,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(259, 288);
+            this.buttonCancel.Location = new System.Drawing.Point(242, 288);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 23;
@@ -212,7 +212,7 @@
             // 
             this.textRuFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.textRuFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textRuFirstName.Location = new System.Drawing.Point(118, 145);
+            this.textRuFirstName.Location = new System.Drawing.Point(101, 146);
             this.textRuFirstName.Name = "textRuFirstName";
             this.textRuFirstName.Size = new System.Drawing.Size(216, 20);
             this.textRuFirstName.TabIndex = 11;
@@ -220,7 +220,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 148);
+            this.label9.Location = new System.Drawing.Point(12, 149);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(83, 13);
             this.label9.TabIndex = 10;
@@ -229,7 +229,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 226);
+            this.label10.Location = new System.Drawing.Point(33, 227);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(62, 13);
             this.label10.TabIndex = 16;
@@ -255,14 +255,14 @@
             "Strategy & Research",
             "TV Buying",
             "Print Production"});
-            this.comboDepartment.Location = new System.Drawing.Point(118, 223);
+            this.comboDepartment.Location = new System.Drawing.Point(101, 224);
             this.comboDepartment.Name = "comboDepartment";
             this.comboDepartment.Size = new System.Drawing.Size(216, 21);
             this.comboDepartment.TabIndex = 17;
             // 
             // textCellPhone
             // 
-            this.textCellPhone.Location = new System.Drawing.Point(118, 250);
+            this.textCellPhone.Location = new System.Drawing.Point(101, 251);
             this.textCellPhone.Mask = "+7 000 000 0000";
             this.textCellPhone.Name = "textCellPhone";
             this.textCellPhone.Size = new System.Drawing.Size(216, 20);
@@ -271,7 +271,7 @@
             // buttonGeneratePassword
             // 
             this.buttonGeneratePassword.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonGeneratePassword.Location = new System.Drawing.Point(270, 41);
+            this.buttonGeneratePassword.Location = new System.Drawing.Point(253, 42);
             this.buttonGeneratePassword.Name = "buttonGeneratePassword";
             this.buttonGeneratePassword.Size = new System.Drawing.Size(64, 20);
             this.buttonGeneratePassword.TabIndex = 24;
@@ -285,7 +285,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(346, 323);
+            this.ClientSize = new System.Drawing.Size(329, 323);
             this.Controls.Add(this.buttonGeneratePassword);
             this.Controls.Add(this.textCellPhone);
             this.Controls.Add(this.comboDepartment);
