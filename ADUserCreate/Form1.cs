@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices;
+using System.Management.Automation;
+using System.Management.Automation.Runspaces;
 
 namespace ADUserCreate
 {
@@ -24,6 +26,25 @@ namespace ADUserCreate
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             int failed = 0;
+
+            textEnLastName.BackColor = System.Drawing.Color.White;
+            textEnLastName.ForeColor = System.Drawing.Color.Black;
+            textEnFirstName.BackColor = System.Drawing.Color.White;
+            textEnFirstName.ForeColor = System.Drawing.Color.Black;
+            textLogin.BackColor = System.Drawing.Color.White;
+            textLogin.ForeColor = System.Drawing.Color.Black;
+            textPassword.BackColor = System.Drawing.Color.White;
+            textPassword.ForeColor = System.Drawing.Color.Black;
+            textCellPhone.BackColor = System.Drawing.Color.White;
+            textCellPhone.ForeColor = System.Drawing.Color.Black;
+            textEnPosition.BackColor = System.Drawing.Color.White;
+            textEnPosition.ForeColor = System.Drawing.Color.Black;
+            textRuFirstName.BackColor = System.Drawing.Color.White;
+            textRuFirstName.ForeColor = System.Drawing.Color.Black;
+            textRuLastName.BackColor = System.Drawing.Color.White;
+            textRuLastName.ForeColor = System.Drawing.Color.Black;
+            textRuPosition.BackColor = System.Drawing.Color.White;
+            textRuPosition.ForeColor = System.Drawing.Color.Black;
 
             if (textEnLastName.Text == null || textEnLastName.Text.Length == 0)
             {
@@ -281,7 +302,7 @@ namespace ADUserCreate
                 }
 
                 // Check if user object already exists in the store
-                UserPrincipal usr = UserPrincipal.FindByIdentity(principalContext, textLogin.Text + "_mi");
+                usr = UserPrincipal.FindByIdentity(principalContext, textLogin.Text + "_mi");
                 if (usr != null)
                 {
                     MessageBox.Show(textLogin.Text + " already exists. Please use a different User Logon Name.");
@@ -289,7 +310,7 @@ namespace ADUserCreate
                 }
 
                 // Create the new UserPrincipal object
-                UserPrincipal userPrincipal = new UserPrincipal(principalContext);
+                userPrincipal = new UserPrincipal(principalContext);
 
                 userPrincipal.UserPrincipalName = textLogin.Text + "_mi@srv1.sbcmedia.ru";
                 userPrincipal.Surname = textEnLastName.Text;
@@ -314,7 +335,56 @@ namespace ADUserCreate
                     return;
                 }
             }
-            
+
+            PSCredential credential = null;
+            Uri connectTo = new Uri("http://mailserv/PowerShell");
+            string schemaURI = "http://schemas.microsoft.com/powershell/Microsoft.Exchange";
+
+            WSManConnectionInfo connectionInfo = new WSManConnectionInfo(connectTo, schemaURI, credential);
+            connectionInfo.MaximumConnectionRedirectionCount = 5;
+            connectionInfo.AuthenticationMechanism = AuthenticationMechanism.Kerberos;
+            Runspace remoteRunspace = RunspaceFactory.CreateRunspace(connectionInfo);
+
+            try
+            {
+                remoteRunspace.Open();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Create mailbox error. " + exc);
+                return;
+            }
+
+            try
+            {
+                PowerShell ps = PowerShell.Create();
+                ps.Runspace = remoteRunspace;
+
+                ps.Commands.AddCommand("Enable-Mailbox");
+                ps.Commands.AddParameter("Identity", textLogin.Text + "@srv1.sbcmedia.ru");
+                ps.Commands.AddParameter("Database", "dag-01-db-01");
+
+                if (textOrganisation == "Horizon")
+                {
+                    ps.Commands.AddStatement();
+                    ps.Commands.AddCommand("Enable-Mailbox");
+                    ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("Database", "dag-01-db-01");
+                }
+
+                var result = ps.Invoke();
+                if (ps.HadErrors)
+                {
+                    MessageBox.Show("Create mailbox failed!");
+                    return;
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Create mailbox error. " + exc);
+                return;
+            }
+
             MessageBox.Show("User successfully added!");
         }
 
