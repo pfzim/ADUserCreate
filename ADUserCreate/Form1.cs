@@ -38,8 +38,6 @@ namespace ADUserCreate
             textLogin.ForeColor = System.Drawing.Color.Black;
             textPassword.BackColor = System.Drawing.Color.White;
             textPassword.ForeColor = System.Drawing.Color.Black;
-            textBirthday.BackColor = System.Drawing.Color.White;
-            textBirthday.ForeColor = System.Drawing.Color.Black;
             textEnPosition.BackColor = System.Drawing.Color.White;
             textEnPosition.ForeColor = System.Drawing.Color.Black;
             textRuFirstName.BackColor = System.Drawing.Color.White;
@@ -77,7 +75,7 @@ namespace ADUserCreate
                 failed++;
             }
 
-            if (textCellPhone.Text != null && textCellPhone.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textCellPhone.Text, @"^\+7 \d\d\d \d\d\d \d\d\d\d$").Success)
+            if (textCellPhone.Text != null && textCellPhone.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textCellPhone.Text, @"^\+7 \d{3} \d{3} \d{4}$").Success)
             {
                 phone = textCellPhone.Text;
             }
@@ -85,8 +83,6 @@ namespace ADUserCreate
             if (textBirthday.Text != null && textBirthday.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textBirthday.Text, @"^(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01]))\.(?:(?:0[1-9])|(?:1[0-2]))$").Success)
             {
                 phone = textBirthday.Text;
-                textBirthday.BackColor = System.Drawing.Color.Green;
-                textBirthday.ForeColor = System.Drawing.Color.White;
             }
 
             if (textEnPosition.Text == null || textEnPosition.Text.Length == 0)
