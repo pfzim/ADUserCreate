@@ -27,6 +27,8 @@ namespace ADUserCreate
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             int failed = 0;
+            string phone = null;
+            string bday = null;
 
             textEnLastName.BackColor = System.Drawing.Color.White;
             textEnLastName.ForeColor = System.Drawing.Color.Black;
@@ -36,8 +38,8 @@ namespace ADUserCreate
             textLogin.ForeColor = System.Drawing.Color.Black;
             textPassword.BackColor = System.Drawing.Color.White;
             textPassword.ForeColor = System.Drawing.Color.Black;
-            textCellPhone.BackColor = System.Drawing.Color.White;
-            textCellPhone.ForeColor = System.Drawing.Color.Black;
+            textBirthday.BackColor = System.Drawing.Color.White;
+            textBirthday.ForeColor = System.Drawing.Color.Black;
             textEnPosition.BackColor = System.Drawing.Color.White;
             textEnPosition.ForeColor = System.Drawing.Color.Black;
             textRuFirstName.BackColor = System.Drawing.Color.White;
@@ -75,11 +77,16 @@ namespace ADUserCreate
                 failed++;
             }
 
-            if (textCellPhone.Text == null || textCellPhone.Text.Length == 0 || !System.Text.RegularExpressions.Regex.Match(textCellPhone.Text, @"^\+7 \d\d\d \d\d\d \d\d\d\d$").Success)
+            if (textCellPhone.Text != null && textCellPhone.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textCellPhone.Text, @"^\+7 \d\d\d \d\d\d \d\d\d\d$").Success)
             {
-                textCellPhone.BackColor = System.Drawing.Color.Red;
-                textCellPhone.ForeColor = System.Drawing.Color.White;
-                failed++;
+                phone = textCellPhone.Text;
+            }
+
+            if (textBirthday.Text != null && textBirthday.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textBirthday.Text, @"^(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01]))\.(?:(?:0[1-9])|(?:1[0-2]))$").Success)
+            {
+                phone = textBirthday.Text;
+                textBirthday.BackColor = System.Drawing.Color.Green;
+                textBirthday.ForeColor = System.Drawing.Color.White;
             }
 
             if (textEnPosition.Text == null || textEnPosition.Text.Length == 0)
@@ -256,10 +263,20 @@ namespace ADUserCreate
             {
                 DirectoryEntry entry = (DirectoryEntry)userPrincipal.GetUnderlyingObject();
 
-                entry.Properties["mobile"].Value = textCellPhone.Text;
+                if (phone != null)
+                {
+                    entry.Properties["mobile"].Value = phone;
+                }
                 entry.Properties["title"].Value = textEnPosition.Text;
                 entry.Properties["description"].Value = textRuFirstName.Text + ' ' + textRuLastName.Text;
-                entry.Properties["info"].Value = textRuPosition.Text;
+                if(bday != null)
+                {
+                    entry.Properties["info"].Value = textRuPosition.Text + ", " + bday;
+                }
+                else
+                {
+                    entry.Properties["info"].Value = textRuPosition.Text;
+                }
                 entry.Properties["department"].Value = comboDepartment.Text;
                 entry.Properties["company"].Value = textOrganisation;
 

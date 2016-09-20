@@ -51,6 +51,8 @@
             this.comboDepartment = new System.Windows.Forms.ComboBox();
             this.textCellPhone = new System.Windows.Forms.MaskedTextBox();
             this.buttonGeneratePassword = new System.Windows.Forms.Button();
+            this.textBirthday = new System.Windows.Forms.MaskedTextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -189,7 +191,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(161, 288);
+            this.buttonAdd.Location = new System.Drawing.Point(161, 319);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 22;
@@ -200,7 +202,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(242, 288);
+            this.buttonCancel.Location = new System.Drawing.Point(242, 319);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 23;
@@ -279,13 +281,32 @@
             this.buttonGeneratePassword.UseVisualStyleBackColor = true;
             this.buttonGeneratePassword.Click += new System.EventHandler(this.buttonGeneratePassword_Click);
             // 
+            // textBirthday
+            // 
+            this.textBirthday.Location = new System.Drawing.Point(101, 277);
+            this.textBirthday.Mask = "00/00";
+            this.textBirthday.Name = "textBirthday";
+            this.textBirthday.Size = new System.Drawing.Size(216, 20);
+            this.textBirthday.TabIndex = 26;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(50, 280);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(45, 13);
+            this.label11.TabIndex = 25;
+            this.label11.Text = "Birthday";
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(329, 323);
+            this.ClientSize = new System.Drawing.Size(329, 354);
+            this.Controls.Add(this.textBirthday);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.buttonGeneratePassword);
             this.Controls.Add(this.textCellPhone);
             this.Controls.Add(this.comboDepartment);
@@ -341,6 +362,8 @@
         private System.Windows.Forms.ComboBox comboDepartment;
         private System.Windows.Forms.MaskedTextBox textCellPhone;
         private System.Windows.Forms.Button buttonGeneratePassword;
+        private System.Windows.Forms.MaskedTextBox textBirthday;
+        private System.Windows.Forms.Label label11;
     }
 }
 
