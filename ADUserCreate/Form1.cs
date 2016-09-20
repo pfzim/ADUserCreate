@@ -27,6 +27,7 @@ namespace ADUserCreate
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             int failed = 0;
+            string corp_phone = null;
             string phone = null;
             string bday = null;
 
@@ -73,6 +74,11 @@ namespace ADUserCreate
                 textPassword.BackColor = System.Drawing.Color.Red;
                 textPassword.ForeColor = System.Drawing.Color.White;
                 failed++;
+            }
+
+            if (textCorpPhone.Text != null && textCorpPhone.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textCorpPhone.Text, @"^\d{3}$").Success)
+            {
+                corp_phone = textCorpPhone.Text;
             }
 
             if (textCellPhone.Text != null && textCellPhone.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textCellPhone.Text, @"^\+7 \d{3} \d{3} \d{4}$").Success)
@@ -262,6 +268,10 @@ namespace ADUserCreate
                 if (phone != null)
                 {
                     entry.Properties["mobile"].Value = phone;
+                }
+                if (corp_phone != null)
+                {
+                    entry.Properties["telephoneNumber"].Value = corp_phone;
                 }
                 entry.Properties["title"].Value = textEnPosition.Text;
                 entry.Properties["description"].Value = textRuFirstName.Text + ' ' + textRuLastName.Text;

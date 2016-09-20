@@ -53,6 +53,8 @@
             this.buttonGeneratePassword = new System.Windows.Forms.Button();
             this.textBirthday = new System.Windows.Forms.MaskedTextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.textCorpPhone = new System.Windows.Forms.MaskedTextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -78,27 +80,27 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(11, 71);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "ENG Last Name";
+            this.label3.Text = "ENG Last name";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 13);
+            this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 6;
-            this.label4.Text = "ENG First Name";
+            this.label4.Text = "ENG First name";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(11, 123);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 8;
-            this.label5.Text = "RUS Last Name";
+            this.label5.Text = "RUS Last name";
             // 
             // label6
             // 
@@ -121,11 +123,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(23, 254);
+            this.label8.Location = new System.Drawing.Point(23, 280);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 13);
+            this.label8.Size = new System.Drawing.Size(71, 13);
             this.label8.TabIndex = 20;
-            this.label8.Text = "Mobile Phone";
+            this.label8.Text = "Mobile phone";
             // 
             // textLogin
             // 
@@ -191,7 +193,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(161, 319);
+            this.buttonAdd.Location = new System.Drawing.Point(161, 339);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 22;
@@ -202,7 +204,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(242, 319);
+            this.buttonCancel.Location = new System.Drawing.Point(242, 339);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 23;
@@ -224,9 +226,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(12, 149);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(83, 13);
+            this.label9.Size = new System.Drawing.Size(81, 13);
             this.label9.TabIndex = 10;
-            this.label9.Text = "RUS First Name";
+            this.label9.Text = "RUS First name";
             // 
             // label10
             // 
@@ -264,7 +266,7 @@
             // 
             // textCellPhone
             // 
-            this.textCellPhone.Location = new System.Drawing.Point(101, 251);
+            this.textCellPhone.Location = new System.Drawing.Point(101, 277);
             this.textCellPhone.Mask = "+7 000 000 0000";
             this.textCellPhone.Name = "textCellPhone";
             this.textCellPhone.Size = new System.Drawing.Size(216, 20);
@@ -283,7 +285,7 @@
             // 
             // textBirthday
             // 
-            this.textBirthday.Location = new System.Drawing.Point(101, 277);
+            this.textBirthday.Location = new System.Drawing.Point(101, 303);
             this.textBirthday.Mask = "00/00";
             this.textBirthday.Name = "textBirthday";
             this.textBirthday.Size = new System.Drawing.Size(216, 20);
@@ -292,11 +294,28 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(50, 280);
+            this.label11.Location = new System.Drawing.Point(50, 306);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(45, 13);
             this.label11.TabIndex = 25;
             this.label11.Text = "Birthday";
+            // 
+            // textCorpPhone
+            // 
+            this.textCorpPhone.Location = new System.Drawing.Point(101, 251);
+            this.textCorpPhone.Mask = "000";
+            this.textCorpPhone.Name = "textCorpPhone";
+            this.textCorpPhone.Size = new System.Drawing.Size(216, 20);
+            this.textCorpPhone.TabIndex = 28;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(33, 254);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(62, 13);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Corp phone";
             // 
             // Form1
             // 
@@ -304,7 +323,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(329, 354);
+            this.ClientSize = new System.Drawing.Size(329, 374);
+            this.Controls.Add(this.textCorpPhone);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.textBirthday);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.buttonGeneratePassword);
@@ -364,6 +385,8 @@
         private System.Windows.Forms.Button buttonGeneratePassword;
         private System.Windows.Forms.MaskedTextBox textBirthday;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.MaskedTextBox textCorpPhone;
+        private System.Windows.Forms.Label label12;
     }
 }
 
