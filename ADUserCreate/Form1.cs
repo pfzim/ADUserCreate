@@ -11,6 +11,7 @@ using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
+using System.IO;
 
 namespace ADUserCreate
 {
@@ -249,6 +250,8 @@ namespace ADUserCreate
                 return;
             }
 
+            File.AppendAllText("users.txt", DateTime.Now.ToString() + " : " + textEnLastName.Text + ' ' + textEnFirstName.Text + " : " + textLogin.Text + " : " + textPassword.Text + Environment.NewLine);
+
             if (userPrincipal.GetUnderlyingObjectType() == typeof(DirectoryEntry))
             {
                 DirectoryEntry entry = (DirectoryEntry)userPrincipal.GetUnderlyingObject();
@@ -266,7 +269,7 @@ namespace ADUserCreate
                 }
                 catch (Exception exc)
                 {
-                    MessageBox.Show("Exception modifying address of the user. " + exc);
+                    MessageBox.Show("Exception modifying info of the user. " + exc);
                     return;
                 }
             }
