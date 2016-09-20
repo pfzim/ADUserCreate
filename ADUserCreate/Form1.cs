@@ -88,7 +88,7 @@ namespace ADUserCreate
 
             if (textBirthday.Text != null && textBirthday.Text.Length > 0 && System.Text.RegularExpressions.Regex.Match(textBirthday.Text, @"^(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01]))\.(?:(?:0[1-9])|(?:1[0-2]))$").Success)
             {
-                phone = textBirthday.Text;
+                bday = textBirthday.Text;
             }
 
             if (textEnPosition.Text == null || textEnPosition.Text.Length == 0)
