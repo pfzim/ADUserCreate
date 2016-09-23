@@ -20,7 +20,7 @@ namespace ADUserCreate
         public Form1()
         {
             InitializeComponent();
-            comboDepartment.SelectedIndex = 0;
+            //comboDepartment.SelectedIndex = 0;
             generate_password();
         }
 
@@ -47,6 +47,8 @@ namespace ADUserCreate
             textRuLastName.ForeColor = System.Drawing.Color.Black;
             textRuPosition.BackColor = System.Drawing.Color.White;
             textRuPosition.ForeColor = System.Drawing.Color.Black;
+            comboDepartment.BackColor = System.Drawing.Color.White;
+            comboDepartment.ForeColor = System.Drawing.Color.Black;
 
             if (textEnLastName.Text == null || textEnLastName.Text.Length == 0)
             {
@@ -116,6 +118,13 @@ namespace ADUserCreate
             {
                 textRuPosition.BackColor = System.Drawing.Color.Red;
                 textRuPosition.ForeColor = System.Drawing.Color.White;
+                failed++;
+            }
+
+            if (comboDepartment.Text == null || comboDepartment.Text.Length == 0)
+            {
+                comboDepartment.BackColor = System.Drawing.Color.Red;
+                comboDepartment.ForeColor = System.Drawing.Color.White;
                 failed++;
             }
 
