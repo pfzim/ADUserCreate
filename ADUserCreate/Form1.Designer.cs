@@ -245,7 +245,6 @@
             this.comboDepartment.Items.AddRange(new object[] {
             "Air",
             "Horizon",
-            "OOH Buying",
             "Accounting",
             "Digital",
             "Finance",

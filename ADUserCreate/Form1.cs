@@ -437,6 +437,50 @@ namespace ADUserCreate
                 return;
             }
 
+            if ((textOrganisation != "Air")
+                && MessageBox.Show("Insert new initialized eToken", "Certificate", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                try
+                {
+                    PowerShell ps = PowerShell.Create();
+
+                    ps.Commands.AddScript(
+                        "$pkcs10 = New-Object -ComObject X509Enrollment.CX509CertificateRequestPkcs10;" +
+                        "$pkcs10.InitializeFromTemplateName(0x1,\"Win2003Пользовательсосмарт-картой\");" +
+                        "$pkcs10.Encode();" +
+                        "$pkcs7 = New-Object -ComObject X509enrollment.CX509CertificateRequestPkcs7;" +
+                        "$pkcs7.InitializeFromInnerRequest($pkcs10);" +
+                        "$pkcs7.RequesterName = \"SBCMEDIA\\" + textLogin.Text + "\";" +
+                        "$signer = New-Object -ComObject X509Enrollment.CSignerCertificate;" +
+                        "$cert = Get-ChildItem Cert:\\CurrentUser\\My | Where-Object {$_.Extensions | Where-Object {$_.Oid.Value -eq \"2.5.29.37\" -and $_.EnhancedKeyUsages[\"1.3.6.1.4.1.311.20.2.1\"]}};" +
+                        "$base64 = [Convert]::ToBase64String($cert.RawData);" +
+                        "$signer = New-Object -ComObject X509Enrollment.CSignerCertificate;" + 
+                        "$signer.Initialize(0, 0, 1,$base64);" +
+                        "$pkcs7.SignerCertificate = $signer;" +
+                        "$Request = New-Object -ComObject X509Enrollment.CX509Enrollment;" +
+                        "$Request.InitializeFromRequest($pkcs7);" +
+                        "$Request.Enroll();"
+                        );
+
+                    var result = ps.Invoke();
+                    if (ps.HadErrors)
+                    {
+                        string err_msg = null;
+                        foreach (var error in ps.Streams.Error)
+                        {
+                            err_msg += error + "\n";
+                        }
+
+                        MessageBox.Show("Create certificate errors:\n\n" + err_msg);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Create certificate failed. " + exc);
+                }
+
+            }
+
             MessageBox.Show("User successfully added!");
         }
 
