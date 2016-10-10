@@ -427,7 +427,13 @@ namespace ADUserCreate
                 var result = ps.Invoke();
                 if (ps.HadErrors)
                 {
-                    MessageBox.Show("Create mailbox failed!");
+                    string err_msg = null;
+                    foreach (var error in ps.Streams.Error)
+                    {
+                        err_msg += error + "\n";
+                    }
+
+                    MessageBox.Show("Create mailbox failed!\n\n" + err_msg);
                     return;
                 }
             }
