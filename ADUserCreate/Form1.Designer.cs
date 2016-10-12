@@ -55,6 +55,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textCorpPhone = new System.Windows.Forms.MaskedTextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.buttonTranslate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -136,7 +137,7 @@
             this.textLogin.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textLogin.Location = new System.Drawing.Point(101, 16);
             this.textLogin.Name = "textLogin";
-            this.textLogin.Size = new System.Drawing.Size(216, 20);
+            this.textLogin.Size = new System.Drawing.Size(146, 20);
             this.textLogin.TabIndex = 1;
             // 
             // textPassword
@@ -316,6 +317,17 @@
             this.label12.TabIndex = 27;
             this.label12.Text = "Corp phone";
             // 
+            // buttonTranslate
+            // 
+            this.buttonTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonTranslate.Location = new System.Drawing.Point(253, 16);
+            this.buttonTranslate.Name = "buttonTranslate";
+            this.buttonTranslate.Size = new System.Drawing.Size(64, 20);
+            this.buttonTranslate.TabIndex = 29;
+            this.buttonTranslate.Text = "Translate";
+            this.buttonTranslate.UseVisualStyleBackColor = true;
+            this.buttonTranslate.Click += new System.EventHandler(this.buttonTranslate_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonAdd;
@@ -323,6 +335,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(329, 374);
+            this.Controls.Add(this.buttonTranslate);
             this.Controls.Add(this.textCorpPhone);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBirthday);
@@ -386,6 +399,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.MaskedTextBox textCorpPhone;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button buttonTranslate;
     }
 }
 
