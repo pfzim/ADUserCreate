@@ -601,12 +601,12 @@ namespace ADUserCreate
 
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
-            string[] full_name = textLogin.Text.Split(' ');
+            string[] full_name = textLogin.Text.Trim().Replace("  ", " ").Split(' ');
 
-            textEnFirstName.Text = GetTranslit(full_name[0]);
-            textEnLastName.Text = GetTranslit(full_name[1]);
-            textRuFirstName.Text = full_name[0];
-            textRuLastName.Text = full_name[1];
+            textEnFirstName.Text = GetTranslit(full_name[1]);
+            textEnLastName.Text = GetTranslit(full_name[0]);
+            textRuFirstName.Text = full_name[1];
+            textRuLastName.Text = full_name[0];
             textLogin.Text = (textEnFirstName.Text[0] + "." + textEnLastName.Text).ToLower();
         }
 
