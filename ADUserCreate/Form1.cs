@@ -21,7 +21,7 @@ namespace ADUserCreate
         {
             InitializeComponent();
             //comboDepartment.SelectedIndex = 0;
-            generate_password();
+            generate_password(16, "0123456789abcdefghijklmnopqrstuvwxvzABCDEFGHIJKLMNOPQRSTUVWXVZ");
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -221,6 +221,10 @@ namespace ADUserCreate
                 {
                     context = "OU=Mediainstinct,OU=Air,DC=srv1,DC=sbcmedia,DC=ru";
                 }
+                else if (textOrganisation == "Horizon")
+                {
+                    context = "OU=Horizon,OU=Mediainstinct,DC=srv1,DC=sbcmedia,DC=ru";
+                }
                 else
                 {
                     context = "OU=" + textOrganisation + ",DC=srv1,DC=sbcmedia,DC=ru";
@@ -328,7 +332,7 @@ namespace ADUserCreate
             {
                 try
                 {
-                    principalContext = new PrincipalContext(ContextType.Domain, "sbcmedia", "OU=Horizon,OU=Mediainstinct,DC=srv1,DC=sbcmedia,DC=ru");
+                    principalContext = new PrincipalContext(ContextType.Domain, "sbcmedia", "OU=Horizon,DC=srv1,DC=sbcmedia,DC=ru");
                 }
                 catch (Exception exc)
                 {
@@ -347,14 +351,14 @@ namespace ADUserCreate
                 // Create the new UserPrincipal object
                 userPrincipal = new UserPrincipal(principalContext);
 
-                userPrincipal.UserPrincipalName = textLogin.Text + "_mi@srv1.sbcmedia.ru";
+                userPrincipal.UserPrincipalName = textLogin.Text + "_hz@srv1.sbcmedia.ru";
                 userPrincipal.Surname = textEnLastName.Text;
                 userPrincipal.GivenName = textEnFirstName.Text;
                 //userPrincipal.DisplayName = textEnLastName.Text + ' ' + textEnFirstName.Text;
                 //userPrincipal.Name = textEnLastName.Text + ' ' + textEnFirstName.Text;
                 userPrincipal.DisplayName = textEnFirstName.Text + ' ' + textEnLastName.Text;
                 userPrincipal.Name = textEnFirstName.Text + ' ' + textEnLastName.Text;
-                userPrincipal.SamAccountName = textLogin.Text+ "_mi";
+                userPrincipal.SamAccountName = textLogin.Text+ "_hz";
                 userPrincipal.SetPassword(textPassword.Text);
 
                 userPrincipal.Enabled = true;
@@ -372,7 +376,7 @@ namespace ADUserCreate
             }
 
             PSCredential credential = null;
-            Uri connectTo = new Uri("http://mailserv/PowerShell");
+            Uri connectTo = new Uri("https://outlook.office365.com/PowerShell-LiveID");
             string schemaURI = "http://schemas.microsoft.com/powershell/Microsoft.Exchange";
 
             WSManConnectionInfo connectionInfo = new WSManConnectionInfo(connectTo, schemaURI, credential);
@@ -395,24 +399,31 @@ namespace ADUserCreate
                 PowerShell ps = PowerShell.Create();
                 ps.Runspace = remoteRunspace;
 
-                ps.Commands.AddCommand("Enable-Mailbox");
-                ps.Commands.AddParameter("Identity", textLogin.Text + "@srv1.sbcmedia.ru");
-                ps.Commands.AddParameter("Database", "dag-01-db-01");
+                //ps.Commands.AddCommand("Enable-Mailbox");
+                //ps.Commands.AddParameter("Identity", textLogin.Text + "@srv1.sbcmedia.ru");
+                //ps.Commands.AddParameter("Database", "dag-01-db-01");
+
+                ps.Commands.AddScript("New-Mailbox -Alias \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -Name \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -FirstName \"" + textEnFirstName.Text + "\" -LastName \"" + textEnLastName.Text + "\" -DisplayName \"" + textEnFirstName.Text + ' ' + textEnLastName.Text + "\" - MicrosoftOnlineServicesID \"" + textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru\" -Password (ConvertTo-SecureString -String '" + textPassword.Text + "' -AsPlainText -Force) -ResetPasswordOnNextLogon $false");
 
                 if (textOrganisation == "Horizon")
                 {
                     ps.Commands.AddStatement();
+                    /*
                     ps.Commands.AddCommand("Enable-Mailbox");
-                    ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("Identity", textLogin.Text + "_hz@srv1.sbcmedia.ru");
                     ps.Commands.AddParameter("Database", "dag-01-db-01");
                     ps.Commands.AddStatement();
                     ps.Commands.AddCommand("Add-MailboxPermission");
-                    ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
+                    ps.Commands.AddParameter("Identity", textLogin.Text + "_hz@srv1.sbcmedia.ru");
                     ps.Commands.AddParameter("User", textLogin.Text + "@srv1.sbcmedia.ru");
                     ps.Commands.AddParameter("AccessRights", "FullAccess");
                     ps.Commands.AddParameter("InheritanceType", "All");
                     ps.Commands.AddStatement();
-                    ps.Commands.AddScript("Get-Mailbox -Identity \"" + textLogin.Text + "_mi@srv1.sbcmedia.ru\" | Add-ADPermission -User \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights ExtendedRight -ExtendedRights \"send as\"");
+                    //ps.Commands.AddScript("Get-Mailbox -Identity \"" + textLogin.Text + "_hz@srv1.sbcmedia.ru\" | Add-ADPermission -User \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights ExtendedRight -ExtendedRights \"send as\"");
+                    */
+                    ps.Commands.AddScript("New-Mailbox -Shared -Name \"" + textEnFirstName.Text + ' ' + textEnLastName.Text + "\" -DisplayName \"" + textEnFirstName.Text + ' ' + textEnLastName.Text + "\" -Alias \"" + textLogin.Text + "_hz@srv1.sbcmedia.ru\" -PrimarySmtpAddress \"" + textEnFirstName.Text + '.' + textEnLastName.Text + "@horizonmedia.ru\" | Set-Mailbox -GrantSendOnBehalfTo \"" + textLogin.Text + "@srv1.sbcmedia.ru\" | Add-MailboxPermission -User \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights FullAccess -InheritanceType All");
+                    ps.Commands.AddStatement();
+                    ps.Commands.AddScript("Add-RecipientPermission \"" + textLogin.Text + "_hz@srv1.sbcmedia.ru\" -Trustee \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights SendAs -confirm:$False");
                     /*
                     ps.Commands.AddCommand("Get-Mailbox");
                     ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
@@ -495,13 +506,13 @@ namespace ADUserCreate
             this.Close();
         }
 
-        private void generate_password()
+        private void generate_password(int len, string password_chars)
         {
-            string password_chars = "0123456789abcdefghijklmnopqrstuvwxvzABCDEFGHIJKLMNOPQRSTUVWXVZ";
+            //string password_chars = "0123456789abcdefghijklmnopqrstuvwxvzABCDEFGHIJKLMNOPQRSTUVWXVZ";
             textPassword.Text = "";
             int i;
             Random rnd = new Random();
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < len; i++)
             {
                 textPassword.Text += password_chars[rnd.Next(password_chars.Length)];
             }
@@ -509,7 +520,7 @@ namespace ADUserCreate
 
         private void buttonGeneratePassword_Click(object sender, EventArgs e)
         {
-            generate_password();
+            generate_password(8, "23456789abcdefghijkmnopqrstuvwxvz");
         }
 
         static Dictionary<char, string> translation = new Dictionary<char, string>()
