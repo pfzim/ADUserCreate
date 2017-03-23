@@ -12,6 +12,8 @@ using System.DirectoryServices;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.IO;
+using System.Management.Automation.Host;
+using System.Security;
 
 namespace ADUserCreate
 {
@@ -258,6 +260,7 @@ namespace ADUserCreate
             userPrincipal.Name = textEnFirstName.Text + ' ' + textEnLastName.Text;
             userPrincipal.SamAccountName = textLogin.Text;
             userPrincipal.SetPassword(textPassword.Text);
+            userPrincipal.EmailAddress = textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru";
 
             userPrincipal.Enabled = true;
             userPrincipal.PasswordNeverExpires = true;
@@ -328,126 +331,82 @@ namespace ADUserCreate
                 return;
             }
 
-            if (textOrganisation == "Horizon")
-            {
-                try
-                {
-                    principalContext = new PrincipalContext(ContextType.Domain, "sbcmedia", "OU=Horizon,DC=srv1,DC=sbcmedia,DC=ru");
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show("Failed to create PrincipalContext. Exception: " + exc);
-                    Application.Exit();
-                }
+            //PSCredential credential = null;
+            var password = new SecureString();
+            Array.ForEach("password".ToCharArray(), password.AppendChar);
 
-                // Check if user object already exists in the store
-                usr = UserPrincipal.FindByIdentity(principalContext, textLogin.Text + "_mi");
-                if (usr != null)
-                {
-                    MessageBox.Show(textLogin.Text + " already exists. Please use a different User Logon Name.");
-                    return;
-                }
+            WSManConnectionInfo ci = new WSManConnectionInfo(new Uri("https://outlook.office365.com/powershell-liveid/"),
+                                                    "http://schemas.microsoft.com/powershell/Microsoft.Exchange",
+                                                    new PSCredential("login", password));
 
-                // Create the new UserPrincipal object
-                userPrincipal = new UserPrincipal(principalContext);
+            ci.AuthenticationMechanism = AuthenticationMechanism.Basic;
+            
 
-                userPrincipal.UserPrincipalName = textLogin.Text + "_hz@srv1.sbcmedia.ru";
-                userPrincipal.Surname = textEnLastName.Text;
-                userPrincipal.GivenName = textEnFirstName.Text;
-                //userPrincipal.DisplayName = textEnLastName.Text + ' ' + textEnFirstName.Text;
-                //userPrincipal.Name = textEnLastName.Text + ' ' + textEnFirstName.Text;
-                userPrincipal.DisplayName = textEnFirstName.Text + ' ' + textEnLastName.Text;
-                userPrincipal.Name = textEnFirstName.Text + ' ' + textEnLastName.Text;
-                userPrincipal.SamAccountName = textLogin.Text+ "_hz";
-                userPrincipal.SetPassword(textPassword.Text);
+			try
+			{
+				using (Runspace runspace = RunspaceFactory.CreateRunspace(ci))
+				{
+					using (PowerShell session = PowerShell.Create())
+					{
+						runspace.Open();
+						session.Runspace = runspace;
 
-                userPrincipal.Enabled = true;
-                userPrincipal.PasswordNeverExpires = true;
+						var pwd = new SecureString();
+						Array.ForEach(textPassword.Text.ToCharArray(), pwd.AppendChar);
+						
+						var result = session.AddCommand("New-Mailbox")
+							.AddParameter("Alias", textLogin.Text)
+							.AddParameter("Name", textEnFirstName.Text + ' ' + textEnLastName.Text)
+							.AddParameter("FirstName", textEnFirstName.Text)
+							.AddParameter("LastName", textEnLastName.Text)
+							.AddParameter("DisplayName", textEnFirstName.Text + ' ' + textEnLastName.Text)
+							.AddParameter("MicrosoftOnlineServicesID", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
+							.AddParameter("Password", password)
+							.AddParameter("ResetPasswordOnNextLogon", false)
+							.Invoke();
 
-                try
-                {
-                    userPrincipal.Save();
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show("Exception creating Horizon second user object. " + exc);
-                    return;
-                }
-            }
+						if(session.HadErrors)
+						{
+							string err_msg = null;
+							foreach (var error in session.Streams.Error)
+							{
+								err_msg += error + "\n";
+							}
 
-            PSCredential credential = null;
-            Uri connectTo = new Uri("https://outlook.office365.com/PowerShell-LiveID");
-            string schemaURI = "http://schemas.microsoft.com/powershell/Microsoft.Exchange";
+							MessageBox.Show("Create mailbox failed!\n\n" + err_msg);
+							return;
+						}
+						
+						session.Commands.Clear();
 
-            WSManConnectionInfo connectionInfo = new WSManConnectionInfo(connectTo, schemaURI, credential);
-            connectionInfo.MaximumConnectionRedirectionCount = 5;
-            connectionInfo.AuthenticationMechanism = AuthenticationMechanism.Kerberos;
-            Runspace remoteRunspace = RunspaceFactory.CreateRunspace(connectionInfo);
+						if (textOrganisation == "Horizon")
+						{
+							result = session.AddCommand("New-Mailbox")
+								.AddParameter("Shared")
+								.AddParameter("Name", textEnFirstName.Text + ' ' + textEnLastName.Text + "Horizon")
+								.AddParameter("Alias", textLogin.Text+"_hz")
+								.AddParameter("PrimarySmtpAddress", textEnFirstName.Text + '.' + textEnLastName.Text + "@horizonmedia.ru")
+								.AddParameter("DisplayName", textEnFirstName.Text + ' ' + textEnLastName.Text)
+								.Invoke();
 
-            try
-            {
-                remoteRunspace.Open();
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show("Create mailbox error. " + exc);
-                return;
-            }
+							if (session.HadErrors)
+							{
+								string err_msg = null;
+								foreach (var error in session.Streams.Error)
+								{
+									err_msg += error + "\n";
+								}
 
-            try
-            {
-                PowerShell ps = PowerShell.Create();
-                ps.Runspace = remoteRunspace;
+								MessageBox.Show("Create shared mailbox failed!\n\n" + err_msg);
+								return;
+							}
+							
+							session.Commands.Clear();
+						}
+					}
+				}
+			}
 
-                //ps.Commands.AddCommand("Enable-Mailbox");
-                //ps.Commands.AddParameter("Identity", textLogin.Text + "@srv1.sbcmedia.ru");
-                //ps.Commands.AddParameter("Database", "dag-01-db-01");
-
-                ps.Commands.AddScript("New-Mailbox -Alias \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -Name \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -FirstName \"" + textEnFirstName.Text + "\" -LastName \"" + textEnLastName.Text + "\" -DisplayName \"" + textEnFirstName.Text + ' ' + textEnLastName.Text + "\" - MicrosoftOnlineServicesID \"" + textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru\" -Password (ConvertTo-SecureString -String '" + textPassword.Text + "' -AsPlainText -Force) -ResetPasswordOnNextLogon $false");
-
-                if (textOrganisation == "Horizon")
-                {
-                    ps.Commands.AddStatement();
-                    /*
-                    ps.Commands.AddCommand("Enable-Mailbox");
-                    ps.Commands.AddParameter("Identity", textLogin.Text + "_hz@srv1.sbcmedia.ru");
-                    ps.Commands.AddParameter("Database", "dag-01-db-01");
-                    ps.Commands.AddStatement();
-                    ps.Commands.AddCommand("Add-MailboxPermission");
-                    ps.Commands.AddParameter("Identity", textLogin.Text + "_hz@srv1.sbcmedia.ru");
-                    ps.Commands.AddParameter("User", textLogin.Text + "@srv1.sbcmedia.ru");
-                    ps.Commands.AddParameter("AccessRights", "FullAccess");
-                    ps.Commands.AddParameter("InheritanceType", "All");
-                    ps.Commands.AddStatement();
-                    //ps.Commands.AddScript("Get-Mailbox -Identity \"" + textLogin.Text + "_hz@srv1.sbcmedia.ru\" | Add-ADPermission -User \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights ExtendedRight -ExtendedRights \"send as\"");
-                    */
-                    ps.Commands.AddScript("New-Mailbox -Shared -Name \"" + textEnFirstName.Text + ' ' + textEnLastName.Text + "\" -DisplayName \"" + textEnFirstName.Text + ' ' + textEnLastName.Text + "\" -Alias \"" + textLogin.Text + "_hz@srv1.sbcmedia.ru\" -PrimarySmtpAddress \"" + textEnFirstName.Text + '.' + textEnLastName.Text + "@horizonmedia.ru\" | Set-Mailbox -GrantSendOnBehalfTo \"" + textLogin.Text + "@srv1.sbcmedia.ru\" | Add-MailboxPermission -User \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights FullAccess -InheritanceType All");
-                    ps.Commands.AddStatement();
-                    ps.Commands.AddScript("Add-RecipientPermission \"" + textLogin.Text + "_hz@srv1.sbcmedia.ru\" -Trustee \"" + textLogin.Text + "@srv1.sbcmedia.ru\" -AccessRights SendAs -confirm:$False");
-                    /*
-                    ps.Commands.AddCommand("Get-Mailbox");
-                    ps.Commands.AddParameter("Identity", textLogin.Text + "_mi@srv1.sbcmedia.ru");
-                    ps.Commands.AddStatement();
-                    ps.Commands.AddCommand("Add-ADPermission");
-                    ps.Commands.AddParameter("User", textLogin.Text + "@srv1.sbcmedia.ru");
-                    ps.Commands.AddParameter("AccessRights", "ExtendedRight");
-                    ps.Commands.AddParameter("ExtendedRights", "send as");
-                    */
-                }
-
-                var result = ps.Invoke();
-                if (ps.HadErrors)
-                {
-                    string err_msg = null;
-                    foreach (var error in ps.Streams.Error)
-                    {
-                        err_msg += error + "\n";
-                    }
-
-                    MessageBox.Show("Create mailbox failed!\n\n" + err_msg);
-                    return;
-                }
-            }
             catch (Exception exc)
             {
                 MessageBox.Show("Create mailbox error. " + exc);
