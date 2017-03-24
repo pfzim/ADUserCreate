@@ -334,16 +334,16 @@ namespace ADUserCreate
             //PSCredential credential = null;
             var password = new SecureString();
             Array.ForEach("password".ToCharArray(), password.AppendChar);
+            PSCredential credential = new PSCredential("login", password);
 
             WSManConnectionInfo ci = new WSManConnectionInfo(new Uri("https://outlook.office365.com/powershell-liveid/"),
                                                     "http://schemas.microsoft.com/powershell/Microsoft.Exchange",
-                                                    new PSCredential("login", password));
+                                                    credential);
 
             ci.AuthenticationMechanism = AuthenticationMechanism.Basic;
-            
 
-			try
-			{
+            try
+            {
 				using (Runspace runspace = RunspaceFactory.CreateRunspace(ci))
 				{
 					using (PowerShell session = PowerShell.Create())
@@ -353,19 +353,19 @@ namespace ADUserCreate
 
 						var pwd = new SecureString();
 						Array.ForEach(textPassword.Text.ToCharArray(), pwd.AppendChar);
-						
-						var result = session.AddCommand("New-Mailbox")
+
+                        var result = session.AddCommand("New-Mailbox")
 							.AddParameter("Alias", textLogin.Text)
 							.AddParameter("Name", textEnFirstName.Text + ' ' + textEnLastName.Text)
 							.AddParameter("FirstName", textEnFirstName.Text)
 							.AddParameter("LastName", textEnLastName.Text)
 							.AddParameter("DisplayName", textEnFirstName.Text + ' ' + textEnLastName.Text)
 							.AddParameter("MicrosoftOnlineServicesID", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
-							.AddParameter("Password", password)
+							.AddParameter("Password", pwd)
 							.AddParameter("ResetPasswordOnNextLogon", false)
 							.Invoke();
 
-						if(session.HadErrors)
+                        if (session.HadErrors)
 						{
 							string err_msg = null;
 							foreach (var error in session.Streams.Error)
@@ -379,7 +379,7 @@ namespace ADUserCreate
 						
 						session.Commands.Clear();
 
-						if (textOrganisation == "Horizon")
+                        if (textOrganisation == "Horizon")
 						{
 							result = session.AddCommand("New-Mailbox")
 								.AddParameter("Shared")
@@ -402,10 +402,152 @@ namespace ADUserCreate
 							}
 							
 							session.Commands.Clear();
-						}
-					}
-				}
+
+                            result = session.AddCommand("Set-Mailbox")
+                                .AddParameter("Identity", textLogin.Text + "_hz")
+                                .AddParameter("GrantSendOnBehalfTo", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
+                                .Invoke();
+
+                            if (session.HadErrors)
+                            {
+                                string err_msg = null;
+                                foreach (var error in session.Streams.Error)
+                                {
+                                    err_msg += error + "\n";
+                                }
+
+                                MessageBox.Show("Create shared mailbox failed!\n\n" + err_msg);
+                                return;
+                            }
+
+                            session.Commands.Clear();
+
+                            
+                            result = session.AddCommand("Add-MailboxPermission")
+                                .AddParameter("Identity", textLogin.Text + "_hz")
+                                .AddParameter("User", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
+                                .AddParameter("AccessRights", "FullAccess")
+                                .AddParameter("InheritanceType", "All")
+                                .Invoke();
+
+                            if (session.HadErrors)
+                            {
+                                string err_msg = null;
+                                foreach (var error in session.Streams.Error)
+                                {
+                                    err_msg += error + "\n";
+                                }
+
+                                MessageBox.Show("Create shared mailbox failed!\n\n" + err_msg);
+                                return;
+                            }
+                            session.Commands.Clear();
+
+                            result = session.AddCommand("Add-RecipientPermission")
+                                .AddParameter("Identity", textLogin.Text + "_hz")
+                                .AddParameter("Trustee", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
+                                .AddParameter("AccessRights", "SendAs")
+                                .AddParameter("confirm", false)
+                                .Invoke();
+
+                            if (session.HadErrors)
+                            {
+                                string err_msg = null;
+                                foreach (var error in session.Streams.Error)
+                                {
+                                    err_msg += error + "\n";
+                                }
+
+                                MessageBox.Show("Create shared mailbox failed!\n\n" + err_msg);
+                                return;
+                            }
+                            session.Commands.Clear();
+                        }
+
+                        session.AddCommand("Exit-PSSession").Invoke();
+                        runspace.Close();
+                    }
+                }
 			}
+
+            catch (Exception exc)
+            {
+                MessageBox.Show("Create mailbox error. " + exc);
+                return;
+            }
+
+            InitialSessionState initialSession = InitialSessionState.CreateDefault();
+            initialSession.ImportPSModule(new[] { "MSOnline" });
+
+            try
+            {
+                using (Runspace runspace = RunspaceFactory.CreateRunspace(initialSession))
+                {
+                    using (PowerShell session = PowerShell.Create())
+                    {
+                        runspace.Open();
+                        session.Runspace = runspace;
+
+                        var pwd = new SecureString();
+                        Array.ForEach(textPassword.Text.ToCharArray(), pwd.AppendChar);
+
+                        var result = session.AddCommand("Connect-MsolService")
+                            .AddParameter("Credential", credential)
+                            .Invoke();
+
+                        if (session.HadErrors)
+                        {
+                            string err_msg = null;
+                            foreach (var error in session.Streams.Error)
+                            {
+                                err_msg += error + "\n";
+                            }
+
+                            MessageBox.Show("Create mailbox failed!\n\n" + err_msg);
+                            return;
+                        }
+                        session.Commands.Clear();
+
+                        result = session.AddCommand("Set-MsolUser")
+                            .AddParameter("UserPrincipalName", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
+                            .AddParameter("UsageLocation", "RU")
+                            .Invoke();
+
+                        if (session.HadErrors)
+                        {
+                            string err_msg = null;
+                            foreach (var error in session.Streams.Error)
+                            {
+                                err_msg += error + "\n";
+                            }
+
+                            MessageBox.Show("Create mailbox failed!\n\n" + err_msg);
+                            return;
+                        }
+                        session.Commands.Clear();
+
+                        result = session.AddCommand("Set-MsolUserLicense")
+                            .AddParameter("UserPrincipalName", textEnFirstName.Text + '.' + textEnLastName.Text + "@mediainstinctgroup.ru")
+                            .AddParameter("AddLicenses", "reseller-account:EXCHANGESTANDARD")
+                            .Invoke();
+
+                        if (session.HadErrors)
+                        {
+                            string err_msg = null;
+                            foreach (var error in session.Streams.Error)
+                            {
+                                err_msg += error + "\n";
+                            }
+
+                            MessageBox.Show("Create mailbox failed!\n\n" + err_msg);
+                            return;
+                        }
+                        session.Commands.Clear();
+
+                        runspace.Close();
+                    }
+                }
+            }
 
             catch (Exception exc)
             {
